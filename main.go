@@ -2,31 +2,36 @@ package main
 
 import (
 	"fmt"
-	"github.com/go-playground/validator"
-	"go-rest-api/app"
-	"go-rest-api/controller"
+	"github.com/julienschmidt/httprouter"
 	"go-rest-api/helper"
 	"go-rest-api/middleware"
-	"go-rest-api/repository"
-	"go-rest-api/service"
 	"net/http"
 )
 
-func main() {
-	validate := validator.New()
-	db := app.NewDB()
-
-	categoryRepository := repository.NewCategoryRepository()
-	categoryService := service.NewCategoryService(categoryRepository, db, validate)
-	categoryController := controller.NewCategoryController(categoryService)
-	router := app.NewRouter(categoryController)
-	authMiddleware := middleware.NewAuthMiddleware(router)
-	logMiddleware := middleware.NewLogMiddleware(authMiddleware)
-
-	server := http.Server{
+func NewServer(handler *middleware.LogMiddleware) *http.Server {
+	return &http.Server{
 		Addr:    "localhost:8085",
-		Handler: logMiddleware,
+		Handler: handler,
 	}
+}
+
+func NewHandler(router *httprouter.Router) *middleware.LogMiddleware {
+	authMiddleware := middleware.NewAuthMiddleware(router)
+	return middleware.NewLogMiddleware(authMiddleware)
+}
+
+func main() {
+	//validate := validator.New()
+	//db := app.NewDB()
+	//
+	//categoryRepository := repository.NewCategoryRepository()
+	//categoryService := service.NewCategoryService(categoryRepository, db, validate)
+	//categoryController := controller.NewCategoryController(categoryService)
+	//router := app.NewRouter(categoryController)
+	//logMiddleware := NewHandler(router)
+	//server := NewServer(logMiddleware)
+	
+	server := InitializeServer()
 	err := server.ListenAndServe()
 	helper.PanicIfError(err)
 
