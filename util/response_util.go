@@ -15,11 +15,12 @@ func WriteResponse(writer http.ResponseWriter, result interface{}) {
 	helper.PanicIfError(errEncode)
 }
 
-func ConstructResponseSuccess(responseJson interface{}) general.ApiBaseResponse {
+func ConstructResponseSuccess(responseJson interface{}, traceId string) general.ApiBaseResponse {
 	return general.ApiBaseResponse{
 		ResponseCode:    "00",
 		ResponseMessage: "SUCCESS",
 		Data:            responseJson,
+		TraceId:         traceId,
 	}
 
 }

@@ -1,0 +1,14 @@
+[2025-08-21 13:34:53] [info ] [main.go:27] [-] - Server start at port localhost:8085
+[2025-08-21 13:35:04] [info ] [log_middleware.go:65] [e42f2336-aeb1-4fd6-8994-92e659a89274] - ====================================================================================
+[2025-08-21 13:35:04] [info ] [log_middleware.go:66] [e42f2336-aeb1-4fd6-8994-92e659a89274] - ---------------------------------- REQUEST -----------------------------------------
+[2025-08-21 13:35:04] [info ] [log_middleware.go:67] [e42f2336-aeb1-4fd6-8994-92e659a89274] - GET : /category/api/v1/list
+[2025-08-21 13:35:04] [info ] [log_middleware.go:70] [e42f2336-aeb1-4fd6-8994-92e659a89274] - Request Header : map[Accept:[application/json] Accept-Encoding:[br, deflate, gzip, x-gzip] User-Agent:[IntelliJ HTTP Client/GoLand 2025.1.3] X-Api-Key:[MULYONOSECRETSERVICE]]
+[2025-08-21 13:35:04] [info ] [log_middleware.go:71] [e42f2336-aeb1-4fd6-8994-92e659a89274] - Request body: 
+[2025-08-21 13:35:04] [info ] [category_controller_impl.go:56] [e42f2336-aeb1-4fd6-8994-92e659a89274] - Start API search category all: /category/api/v1/list
+[2025-08-21 13:35:04] [info ] [category_service_impl.go:70] [e42f2336-aeb1-4fd6-8994-92e659a89274] - Start search category all
+[2025-08-21 13:35:04] [info ] [log_middleware.go:78] [e42f2336-aeb1-4fd6-8994-92e659a89274] - ---------------------------------- RESPONSE ----------------------------------------
+[2025-08-21 13:35:04] [info ] [log_middleware.go:79] [e42f2336-aeb1-4fd6-8994-92e659a89274] - Duration: 118 millisecond
+[2025-08-21 13:35:04] [info ] [log_middleware.go:80] [e42f2336-aeb1-4fd6-8994-92e659a89274] - Response Status: 200
+[2025-08-21 13:35:04] [info ] [log_middleware.go:81] [e42f2336-aeb1-4fd6-8994-92e659a89274] - Response Header : map[Accept:[application/json] Accept-Encoding:[br, deflate, gzip, x-gzip] User-Agent:[IntelliJ HTTP Client/GoLand 2025.1.3] X-Api-Key:[MULYONOSECRETSERVICE]]
+[2025-08-21 13:35:04] [info ] [log_middleware.go:82] [e42f2336-aeb1-4fd6-8994-92e659a89274] - Response Body : {"responseMessage":"SUCCESS","responseCode":"00","data":[{"id":1,"name":"Barang Terlarang"},{"id":3,"name":"Barang Sembarangan"}],"traceId":"e42f2336-aeb1-4fd6-8994-92e659a89274"}
+[2025-08-21 13:35:04] [info ] [log_middleware.go:83] [e42f2336-aeb1-4fd6-8994-92e659a89274] - ====================================================================================

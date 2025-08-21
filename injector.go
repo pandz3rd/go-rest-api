@@ -6,6 +6,7 @@ package main
 import (
 	"github.com/go-playground/validator"
 	"github.com/google/wire"
+	"github.com/sirupsen/logrus"
 	"go-rest-api/app"
 	"go-rest-api/controller"
 	"go-rest-api/repository"
@@ -32,7 +33,7 @@ var serverSet = wire.NewSet(
 	NewServer,
 )
 
-func InitializeServer() *http.Server {
+func InitializeServer(logger *logrus.Logger) *http.Server {
 	wire.Build(
 		app.NewDB,
 		validator.New,

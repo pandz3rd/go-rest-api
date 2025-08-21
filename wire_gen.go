@@ -9,6 +9,7 @@ package main
 import (
 	"github.com/go-playground/validator"
 	"github.com/google/wire"
+	"github.com/sirupsen/logrus"
 	"go-rest-api/app"
 	"go-rest-api/controller"
 	"go-rest-api/repository"
@@ -18,14 +19,14 @@ import (
 
 // Injectors from injector.go:
 
-func InitializeServer() *http.Server {
+func InitializeServer(logger *logrus.Logger) *http.Server {
 	categoryRepositoryImpl := repository.NewCategoryRepository()
 	db := app.NewDB()
 	validate := validator.New()
-	categoryServiceImpl := service.NewCategoryService(categoryRepositoryImpl, db, validate)
-	categoryControllerImpl := controller.NewCategoryController(categoryServiceImpl)
+	categoryServiceImpl := service.NewCategoryService(categoryRepositoryImpl, db, validate, logger)
+	categoryControllerImpl := controller.NewCategoryController(categoryServiceImpl, logger)
 	router := app.NewRouter(categoryControllerImpl)
-	logMiddleware := NewHandler(router)
+	logMiddleware := NewHandler(router, logger)
 	server := NewServer(logMiddleware)
 	return server
 }

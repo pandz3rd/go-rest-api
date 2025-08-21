@@ -2,17 +2,25 @@ package middleware
 
 import (
 	"bytes"
-	"fmt"
+	"context"
+	"github.com/google/uuid"
+	"github.com/sirupsen/logrus"
 	"io"
 	"net/http"
+	"strings"
+	"time"
 )
 
 type LogMiddleware struct {
 	handler http.Handler
+	logger  *logrus.Logger
 }
 
-func NewLogMiddleware(handler http.Handler) *LogMiddleware {
-	return &LogMiddleware{handler: handler}
+func NewLogMiddleware(handler http.Handler, logger *logrus.Logger) *LogMiddleware {
+	return &LogMiddleware{
+		handler: handler,
+		logger:  logger,
+	}
 }
 
 type captureResponseWriter struct {
@@ -43,21 +51,34 @@ var doubleLine = "==============================================================
 var requestLine = "---------------------------------- REQUEST -----------------------------------------"
 var responseLine = "---------------------------------- RESPONSE ----------------------------------------"
 
+const TraceIdKey string = "traceId"
+
 func (middleware *LogMiddleware) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	fmt.Println(doubleLine)
-	fmt.Println(requestLine)
-	fmt.Printf("%s : %s\n", r.Method, r.RequestURI)
+	start := time.Now()
+
+	traceId := uuid.New().String()
+	ctx := context.WithValue(r.Context(), TraceIdKey, traceId)
+
+	// Add to response header (optional, useful for clients)
+	w.Header().Set("X-Trace-Id", traceId)
+
+	middleware.logger.WithFields(logrus.Fields{"traceId": traceId}).Info(doubleLine)
+	middleware.logger.WithFields(logrus.Fields{"traceId": traceId}).Info(requestLine)
+	middleware.logger.WithFields(logrus.Fields{"traceId": traceId}).Infof("%s : %s", r.Method, r.RequestURI)
 
 	reqBodyBytes, _ := io.ReadAll(r.Body)
-	fmt.Printf("Request Header : %s\n", r.Header)
-	fmt.Printf("Request body: %s\n", string(reqBodyBytes))
+	middleware.logger.WithFields(logrus.Fields{"traceId": traceId}).Infof("Request Header : %s", r.Header)
+	middleware.logger.WithFields(logrus.Fields{"traceId": traceId}).Infof("Request body: %s", string(reqBodyBytes))
 	r.Body = io.NopCloser(bytes.NewBuffer(reqBodyBytes))
 
 	crw := newCaptureResponseWriter(w)
-	middleware.handler.ServeHTTP(crw, r)
-	fmt.Println(responseLine)
-	fmt.Printf("Response Status: %d\n", crw.statusCode)
-	fmt.Printf("Response Header : %s\n", r.Header)
-	fmt.Printf("Response Body : %s\n", crw.body.String())
-	fmt.Println(doubleLine)
+	middleware.handler.ServeHTTP(crw, r.WithContext(ctx))
+	end := time.Since(start).Milliseconds()
+	responseBodyString := strings.TrimSpace(crw.body.String())
+	middleware.logger.WithFields(logrus.Fields{"traceId": traceId}).Info(responseLine)
+	middleware.logger.WithFields(logrus.Fields{"traceId": traceId}).Infof("Duration: %d millisecond", int(end))
+	middleware.logger.WithFields(logrus.Fields{"traceId": traceId}).Infof("Response Status: %d", crw.statusCode)
+	middleware.logger.WithFields(logrus.Fields{"traceId": traceId}).Infof("Response Header : %s", r.Header)
+	middleware.logger.WithFields(logrus.Fields{"traceId": traceId}).Infof("Response Body : %s", responseBodyString)
+	middleware.logger.WithFields(logrus.Fields{"traceId": traceId}).Info(doubleLine)
 }
