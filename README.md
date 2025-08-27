@@ -12,6 +12,7 @@ This project is a simple REST API built with **Go** that demonstrates:
 - [Logrus](https://github.com/sirupsen/logrus) for manage log
 - [Lumberjack](https://github.com/natefinch/lumberjack) for manage rolling file log
 - [Google UUID](https://github.com/google/uuid) for generate uuid
+- [Viper](https://github.com/spf13/viper) to manage global variable
 
 ### Install dependencies
 ```bash

@@ -12,3 +12,17 @@
 [2025-08-21 13:35:04] [info ] [log_middleware.go:81] [e42f2336-aeb1-4fd6-8994-92e659a89274] - Response Header : map[Accept:[application/json] Accept-Encoding:[br, deflate, gzip, x-gzip] User-Agent:[IntelliJ HTTP Client/GoLand 2025.1.3] X-Api-Key:[MULYONOSECRETSERVICE]]
 [2025-08-21 13:35:04] [info ] [log_middleware.go:82] [e42f2336-aeb1-4fd6-8994-92e659a89274] - Response Body : {"responseMessage":"SUCCESS","responseCode":"00","data":[{"id":1,"name":"Barang Terlarang"},{"id":3,"name":"Barang Sembarangan"}],"traceId":"e42f2336-aeb1-4fd6-8994-92e659a89274"}
 [2025-08-21 13:35:04] [info ] [log_middleware.go:83] [e42f2336-aeb1-4fd6-8994-92e659a89274] - ====================================================================================
+[2025-08-27 16:43:12] [info ] [main.go:27] [-] - Server start at port localhost:8085
+[2025-08-27 16:43:29] [info ] [log_middleware.go:65] [a6620774-4681-46c2-9fa3-6422018149f6] - ====================================================================================
+[2025-08-27 16:43:29] [info ] [log_middleware.go:66] [a6620774-4681-46c2-9fa3-6422018149f6] - ---------------------------------- REQUEST -----------------------------------------
+[2025-08-27 16:43:29] [info ] [log_middleware.go:67] [a6620774-4681-46c2-9fa3-6422018149f6] - GET : /category/api/v1/list
+[2025-08-27 16:43:29] [info ] [log_middleware.go:70] [a6620774-4681-46c2-9fa3-6422018149f6] - Request Header : map[Accept:[application/json] Accept-Encoding:[br, deflate, gzip, x-gzip] User-Agent:[IntelliJ HTTP Client/GoLand 2025.1.3] X-Api-Key:[MULYONOSECRETSERVICE]]
+[2025-08-27 16:43:29] [info ] [log_middleware.go:71] [a6620774-4681-46c2-9fa3-6422018149f6] - Request body: 
+[2025-08-27 16:43:29] [info ] [category_controller_impl.go:56] [a6620774-4681-46c2-9fa3-6422018149f6] - Start API search category all: /category/api/v1/list
+[2025-08-27 16:43:29] [info ] [category_service_impl.go:70] [a6620774-4681-46c2-9fa3-6422018149f6] - Start search category all
+[2025-08-27 16:43:30] [info ] [log_middleware.go:78] [a6620774-4681-46c2-9fa3-6422018149f6] - ---------------------------------- RESPONSE ----------------------------------------
+[2025-08-27 16:43:30] [info ] [log_middleware.go:79] [a6620774-4681-46c2-9fa3-6422018149f6] - Duration: 627 millisecond
+[2025-08-27 16:43:30] [info ] [log_middleware.go:80] [a6620774-4681-46c2-9fa3-6422018149f6] - Response Status: 200
+[2025-08-27 16:43:30] [info ] [log_middleware.go:81] [a6620774-4681-46c2-9fa3-6422018149f6] - Response Header : map[Accept:[application/json] Accept-Encoding:[br, deflate, gzip, x-gzip] User-Agent:[IntelliJ HTTP Client/GoLand 2025.1.3] X-Api-Key:[MULYONOSECRETSERVICE]]
+[2025-08-27 16:43:30] [info ] [log_middleware.go:82] [a6620774-4681-46c2-9fa3-6422018149f6] - Response Body : {"responseMessage":"SUCCESS","responseCode":"00","data":[{"id":1,"name":"Barang Terlarang"},{"id":3,"name":"Barang Sembarangan"}],"traceId":"a6620774-4681-46c2-9fa3-6422018149f6"}
+[2025-08-27 16:43:30] [info ] [log_middleware.go:83] [a6620774-4681-46c2-9fa3-6422018149f6] - ====================================================================================
